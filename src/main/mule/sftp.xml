@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:sftp="http://www.mulesoft.org/schema/mule/sftp" xmlns:http="http://www.mulesoft.org/schema/mule/http"
+	xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/sftp http://www.mulesoft.org/schema/mule/sftp/current/mule-sftp.xsd">
+	<http:listener-config name="HTTP_Listener_config" doc:name="HTTP Listener config" doc:id="a7b7858c-44cf-446f-8de1-caae289f527f" >
+		<http:listener-connection host="localhost" port="8088" />
+	</http:listener-config>
+	<sftp:config name="SFTP_Config" doc:name="SFTP Config" doc:id="732123bb-36cd-4064-97a5-ad7cba5aab48" >
+		<sftp:connection host="192.168.211.129" username="tumay" password="tumay" />
+	</sftp:config>
+	<flow name="sftpFlow" doc:id="b8b90d19-318c-400f-8e20-2e03cb834f3e" >
+		<http:listener doc:name="Listener" doc:id="b1996dbd-735a-49e0-a5aa-353072505c35" config-ref="HTTP_Listener_config" path="/sftp"/>
+		<sftp:write doc:name="Write" doc:id="70dc22a9-d1c6-41bf-800c-7cebf948d672" config-ref="SFTP_Config" path="msg.txt"/>
+	</flow>
+</mule>
